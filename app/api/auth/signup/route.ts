@@ -1,29 +1,44 @@
 import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
+import { SignupFormData } from "@/lib/types";
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, password, name } = await req.json();
+    const formData: SignupFormData = await req.json();
 
     // Validate input
-    if (!username || !password) {
+    if (!formData.username || !formData.password) {
       return NextResponse.json(
         { error: "Username and password are required" },
         { status: 400 },
       );
     }
 
-    if (password.length < 6) {
+    if (formData.password.length < 6) {
       return NextResponse.json(
         { error: "Password must be at least 6 characters" },
         { status: 400 },
       );
     }
 
+    if (!formData.mlbbId) {
+      return NextResponse.json(
+        { error: "MLBB ID is required" },
+        { status: 400 },
+      );
+    }
+
+    if (formData.password !== formData.passwordConfirm) {
+      return NextResponse.json(
+        { error: "Passwords do not match" },
+        { status: 400 },
+      );
+    }
+
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
-      where: { username },
+      where: { username: formData.username },
     });
 
     if (existingUser) {
@@ -34,14 +49,23 @@ export async function POST(req: NextRequest) {
     }
 
     // Hash password
-    const hashedPassword = await hash(password, 10);
+    const hashedPassword = await hash(formData.password, 10);
 
     // Create user
     const user = await prisma.user.create({
       data: {
-        username,
+        username: formData.username,
         password: hashedPassword,
-        name: name || null,
+        mlbbId: formData.mlbbId,
+        currentRank: formData.currentRank,
+        currentRankStars: formData.currentRankStars,
+        peakRank: formData.peakRank,
+        peakRankStars: formData.peakRankStars,
+        role: formData.role,
+        totalMatches: formData.totalMatches,
+        winRate: formData.winRate,
+        fbLink: formData.fbLink || null,
+        avatarUrl: formData.avatarUrl || null,
       },
     });
 

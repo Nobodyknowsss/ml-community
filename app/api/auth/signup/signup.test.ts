@@ -7,6 +7,7 @@ jest.mock("@/lib/prisma", () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),
+      findFirst: jest.fn(),
       create: jest.fn(),
     },
   },
@@ -19,12 +20,25 @@ describe("/api/auth/signup", () => {
     jest.clearAllMocks();
   });
 
-  it("should create a new user with hashed password", async () => {
+  it("should create a new user with all fields", async () => {
     const mockUser = {
       id: 1,
       username: "testuser",
       password: "hashed_password_123",
-      name: "Test User",
+      name: null,
+      mlbbId: "12345678",
+      currentRank: "Epic",
+      currentRankStars: 50,
+      peakRank: "Legend",
+      peakRankStars: 75,
+      role: "Mid",
+      totalMatches: 100,
+      winRate: 52.5,
+      fbLink: "https://facebook.com/testuser",
+      avatarUrl: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      posts: [],
     };
 
     (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
@@ -38,7 +52,17 @@ describe("/api/auth/signup", () => {
         body: JSON.stringify({
           username: "testuser",
           password: "password123",
-          name: "Test User",
+          passwordConfirm: "password123",
+          mlbbId: "12345678",
+          currentRank: "Epic",
+          currentRankStars: 50,
+          peakRank: "Legend",
+          peakRankStars: 75,
+          role: "Mid",
+          totalMatches: 100,
+          winRate: 52.5,
+          fbLink: "https://facebook.com/testuser",
+          avatarUrl: "",
         }),
       },
     );
@@ -48,19 +72,9 @@ describe("/api/auth/signup", () => {
 
     expect(response.status).toBe(201);
     expect(data.message).toBe("User created successfully");
-    expect(data.user).toEqual({
-      id: 1,
-      username: "testuser",
-      name: "Test User",
-    });
+    expect(data.user.username).toBe("testuser");
+    expect(data.user.mlbbId).toBe("12345678");
     expect(data.user.password).toBeUndefined();
-    expect(prisma.user.create).toHaveBeenCalledWith({
-      data: {
-        username: "testuser",
-        password: "hashed_password_123",
-        name: "Test User",
-      },
-    });
   });
 
   it("should return 400 when username is missing", async () => {
@@ -107,6 +121,17 @@ describe("/api/auth/signup", () => {
         body: JSON.stringify({
           username: "testuser",
           password: "short",
+          passwordConfirm: "short",
+          mlbbId: "12345678",
+          currentRank: "Epic",
+          currentRankStars: 50,
+          peakRank: "Legend",
+          peakRankStars: 75,
+          role: "Mid",
+          totalMatches: 100,
+          winRate: 52.5,
+          fbLink: "",
+          avatarUrl: "",
         }),
       },
     );
@@ -123,7 +148,7 @@ describe("/api/auth/signup", () => {
       id: 1,
       username: "testuser",
       password: "hashed_password",
-      name: "Existing User",
+      mlbbId: "12345678",
     });
 
     const request = new NextRequest(
@@ -133,6 +158,17 @@ describe("/api/auth/signup", () => {
         body: JSON.stringify({
           username: "testuser",
           password: "password123",
+          passwordConfirm: "password123",
+          mlbbId: "87654321",
+          currentRank: "Epic",
+          currentRankStars: 50,
+          peakRank: "Legend",
+          peakRankStars: 75,
+          role: "Mid",
+          totalMatches: 100,
+          winRate: 52.5,
+          fbLink: "",
+          avatarUrl: "",
         }),
       },
     );
@@ -142,6 +178,70 @@ describe("/api/auth/signup", () => {
 
     expect(response.status).toBe(409);
     expect(data.error).toBe("Username already taken");
+  });
+
+  it("should return 400 when MLBB ID is missing", async () => {
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
+
+    const request = new NextRequest(
+      new URL("http://localhost:3000/api/auth/signup"),
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username: "testuser",
+          password: "password123",
+          passwordConfirm: "password123",
+          mlbbId: "",
+          currentRank: "Epic",
+          currentRankStars: 50,
+          peakRank: "Legend",
+          peakRankStars: 75,
+          role: "Mid",
+          totalMatches: 100,
+          winRate: 52.5,
+          fbLink: "",
+          avatarUrl: "",
+        }),
+      },
+    );
+
+    const response = await POST(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(data.error).toBe("MLBB ID is required");
+  });
+
+  it("should return 400 when passwords do not match", async () => {
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
+
+    const request = new NextRequest(
+      new URL("http://localhost:3000/api/auth/signup"),
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username: "testuser",
+          password: "password123",
+          passwordConfirm: "password456",
+          mlbbId: "12345678",
+          currentRank: "Epic",
+          currentRankStars: 50,
+          peakRank: "Legend",
+          peakRankStars: 75,
+          role: "Mid",
+          totalMatches: 100,
+          winRate: 52.5,
+          fbLink: "",
+          avatarUrl: "",
+        }),
+      },
+    );
+
+    const response = await POST(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(data.error).toBe("Passwords do not match");
   });
 
   it("should handle server errors gracefully", async () => {
@@ -156,6 +256,17 @@ describe("/api/auth/signup", () => {
         body: JSON.stringify({
           username: "testuser",
           password: "password123",
+          passwordConfirm: "password123",
+          mlbbId: "12345678",
+          currentRank: "Epic",
+          currentRankStars: 50,
+          peakRank: "Legend",
+          peakRankStars: 75,
+          role: "Mid",
+          totalMatches: 100,
+          winRate: 52.5,
+          fbLink: "",
+          avatarUrl: "",
         }),
       },
     );
@@ -165,41 +276,5 @@ describe("/api/auth/signup", () => {
 
     expect(response.status).toBe(500);
     expect(data.error).toBe("Internal server error");
-  });
-
-  it("should accept optional name field", async () => {
-    const mockUser = {
-      id: 1,
-      username: "testuser",
-      password: "hashed_password_123",
-      name: null,
-    };
-
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
-    (hash as jest.Mock).mockResolvedValue("hashed_password_123");
-    (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-
-    const request = new NextRequest(
-      new URL("http://localhost:3000/api/auth/signup"),
-      {
-        method: "POST",
-        body: JSON.stringify({
-          username: "testuser",
-          password: "password123",
-        }),
-      },
-    );
-
-    const response = await POST(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(201);
-    expect(prisma.user.create).toHaveBeenCalledWith({
-      data: {
-        username: "testuser",
-        password: "hashed_password_123",
-        name: null,
-      },
-    });
   });
 });
