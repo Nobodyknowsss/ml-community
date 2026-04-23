@@ -75,7 +75,19 @@ export const UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
   password: 'password',
-  name: 'name'
+  name: 'name',
+  mlbbId: 'mlbbId',
+  currentRank: 'currentRank',
+  currentRankStars: 'currentRankStars',
+  peakRank: 'peakRank',
+  peakRankStars: 'peakRankStars',
+  role: 'role',
+  totalMatches: 'totalMatches',
+  winRate: 'winRate',
+  fbLink: 'fbLink',
+  avatarUrl: 'avatarUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

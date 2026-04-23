@@ -28,10 +28,18 @@ export type AggregateUser = {
 
 export type UserAvgAggregateOutputType = {
   id: number | null
+  currentRankStars: number | null
+  peakRankStars: number | null
+  totalMatches: number | null
+  winRate: number | null
 }
 
 export type UserSumAggregateOutputType = {
   id: number | null
+  currentRankStars: number | null
+  peakRankStars: number | null
+  totalMatches: number | null
+  winRate: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -39,6 +47,18 @@ export type UserMinAggregateOutputType = {
   username: string | null
   password: string | null
   name: string | null
+  mlbbId: string | null
+  currentRank: string | null
+  currentRankStars: number | null
+  peakRank: string | null
+  peakRankStars: number | null
+  role: string | null
+  totalMatches: number | null
+  winRate: number | null
+  fbLink: string | null
+  avatarUrl: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -46,6 +66,18 @@ export type UserMaxAggregateOutputType = {
   username: string | null
   password: string | null
   name: string | null
+  mlbbId: string | null
+  currentRank: string | null
+  currentRankStars: number | null
+  peakRank: string | null
+  peakRankStars: number | null
+  role: string | null
+  totalMatches: number | null
+  winRate: number | null
+  fbLink: string | null
+  avatarUrl: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -53,16 +85,36 @@ export type UserCountAggregateOutputType = {
   username: number
   password: number
   name: number
+  mlbbId: number
+  currentRank: number
+  currentRankStars: number
+  peakRank: number
+  peakRankStars: number
+  role: number
+  totalMatches: number
+  winRate: number
+  fbLink: number
+  avatarUrl: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type UserAvgAggregateInputType = {
   id?: true
+  currentRankStars?: true
+  peakRankStars?: true
+  totalMatches?: true
+  winRate?: true
 }
 
 export type UserSumAggregateInputType = {
   id?: true
+  currentRankStars?: true
+  peakRankStars?: true
+  totalMatches?: true
+  winRate?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -70,6 +122,18 @@ export type UserMinAggregateInputType = {
   username?: true
   password?: true
   name?: true
+  mlbbId?: true
+  currentRank?: true
+  currentRankStars?: true
+  peakRank?: true
+  peakRankStars?: true
+  role?: true
+  totalMatches?: true
+  winRate?: true
+  fbLink?: true
+  avatarUrl?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -77,6 +141,18 @@ export type UserMaxAggregateInputType = {
   username?: true
   password?: true
   name?: true
+  mlbbId?: true
+  currentRank?: true
+  currentRankStars?: true
+  peakRank?: true
+  peakRankStars?: true
+  role?: true
+  totalMatches?: true
+  winRate?: true
+  fbLink?: true
+  avatarUrl?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -84,6 +160,18 @@ export type UserCountAggregateInputType = {
   username?: true
   password?: true
   name?: true
+  mlbbId?: true
+  currentRank?: true
+  currentRankStars?: true
+  peakRank?: true
+  peakRankStars?: true
+  role?: true
+  totalMatches?: true
+  winRate?: true
+  fbLink?: true
+  avatarUrl?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -178,6 +266,18 @@ export type UserGroupByOutputType = {
   username: string
   password: string
   name: string | null
+  mlbbId: string
+  currentRank: string
+  currentRankStars: number
+  peakRank: string
+  peakRankStars: number
+  role: string
+  totalMatches: number
+  winRate: number
+  fbLink: string | null
+  avatarUrl: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -208,6 +308,18 @@ export type UserWhereInput = {
   username?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  mlbbId?: Prisma.StringFilter<"User"> | string
+  currentRank?: Prisma.StringFilter<"User"> | string
+  currentRankStars?: Prisma.IntFilter<"User"> | number
+  peakRank?: Prisma.StringFilter<"User"> | string
+  peakRankStars?: Prisma.IntFilter<"User"> | number
+  role?: Prisma.StringFilter<"User"> | string
+  totalMatches?: Prisma.IntFilter<"User"> | number
+  winRate?: Prisma.FloatFilter<"User"> | number
+  fbLink?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
 }
 
@@ -216,6 +328,18 @@ export type UserOrderByWithRelationInput = {
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  mlbbId?: Prisma.SortOrder
+  currentRank?: Prisma.SortOrder
+  currentRankStars?: Prisma.SortOrder
+  peakRank?: Prisma.SortOrder
+  peakRankStars?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalMatches?: Prisma.SortOrder
+  winRate?: Prisma.SortOrder
+  fbLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   posts?: Prisma.PostOrderByRelationAggregateInput
 }
 
@@ -227,6 +351,18 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   password?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  mlbbId?: Prisma.StringFilter<"User"> | string
+  currentRank?: Prisma.StringFilter<"User"> | string
+  currentRankStars?: Prisma.IntFilter<"User"> | number
+  peakRank?: Prisma.StringFilter<"User"> | string
+  peakRankStars?: Prisma.IntFilter<"User"> | number
+  role?: Prisma.StringFilter<"User"> | string
+  totalMatches?: Prisma.IntFilter<"User"> | number
+  winRate?: Prisma.FloatFilter<"User"> | number
+  fbLink?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
 }, "id" | "username">
 
@@ -235,6 +371,18 @@ export type UserOrderByWithAggregationInput = {
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  mlbbId?: Prisma.SortOrder
+  currentRank?: Prisma.SortOrder
+  currentRankStars?: Prisma.SortOrder
+  peakRank?: Prisma.SortOrder
+  peakRankStars?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalMatches?: Prisma.SortOrder
+  winRate?: Prisma.SortOrder
+  fbLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -250,12 +398,36 @@ export type UserScalarWhereWithAggregatesInput = {
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  mlbbId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  currentRank?: Prisma.StringWithAggregatesFilter<"User"> | string
+  currentRankStars?: Prisma.IntWithAggregatesFilter<"User"> | number
+  peakRank?: Prisma.StringWithAggregatesFilter<"User"> | string
+  peakRankStars?: Prisma.IntWithAggregatesFilter<"User"> | number
+  role?: Prisma.StringWithAggregatesFilter<"User"> | string
+  totalMatches?: Prisma.IntWithAggregatesFilter<"User"> | number
+  winRate?: Prisma.FloatWithAggregatesFilter<"User"> | number
+  fbLink?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
   username: string
   password: string
   name?: string | null
+  mlbbId: string
+  currentRank?: string
+  currentRankStars?: number
+  peakRank?: string
+  peakRankStars?: number
+  role?: string
+  totalMatches?: number
+  winRate?: number
+  fbLink?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
 }
 
@@ -264,6 +436,18 @@ export type UserUncheckedCreateInput = {
   username: string
   password: string
   name?: string | null
+  mlbbId: string
+  currentRank?: string
+  currentRankStars?: number
+  peakRank?: string
+  peakRankStars?: number
+  role?: string
+  totalMatches?: number
+  winRate?: number
+  fbLink?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
@@ -271,6 +455,18 @@ export type UserUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
+  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
+  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
 }
 
@@ -279,6 +475,18 @@ export type UserUncheckedUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
+  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
+  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
@@ -287,12 +495,36 @@ export type UserCreateManyInput = {
   username: string
   password: string
   name?: string | null
+  mlbbId: string
+  currentRank?: string
+  currentRankStars?: number
+  peakRank?: string
+  peakRankStars?: number
+  role?: string
+  totalMatches?: number
+  winRate?: number
+  fbLink?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
+  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
+  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -300,6 +532,18 @@ export type UserUncheckedUpdateManyInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
+  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
+  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -307,10 +551,26 @@ export type UserCountOrderByAggregateInput = {
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  mlbbId?: Prisma.SortOrder
+  currentRank?: Prisma.SortOrder
+  currentRankStars?: Prisma.SortOrder
+  peakRank?: Prisma.SortOrder
+  peakRankStars?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalMatches?: Prisma.SortOrder
+  winRate?: Prisma.SortOrder
+  fbLink?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  currentRankStars?: Prisma.SortOrder
+  peakRankStars?: Prisma.SortOrder
+  totalMatches?: Prisma.SortOrder
+  winRate?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -318,6 +578,18 @@ export type UserMaxOrderByAggregateInput = {
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  mlbbId?: Prisma.SortOrder
+  currentRank?: Prisma.SortOrder
+  currentRankStars?: Prisma.SortOrder
+  peakRank?: Prisma.SortOrder
+  peakRankStars?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalMatches?: Prisma.SortOrder
+  winRate?: Prisma.SortOrder
+  fbLink?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -325,10 +597,26 @@ export type UserMinOrderByAggregateInput = {
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  mlbbId?: Prisma.SortOrder
+  currentRank?: Prisma.SortOrder
+  currentRankStars?: Prisma.SortOrder
+  peakRank?: Prisma.SortOrder
+  peakRankStars?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalMatches?: Prisma.SortOrder
+  winRate?: Prisma.SortOrder
+  fbLink?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  currentRankStars?: Prisma.SortOrder
+  peakRankStars?: Prisma.SortOrder
+  totalMatches?: Prisma.SortOrder
+  winRate?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -352,6 +640,18 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
 export type UserCreateNestedOneWithoutPostsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostsInput
@@ -370,6 +670,18 @@ export type UserCreateWithoutPostsInput = {
   username: string
   password: string
   name?: string | null
+  mlbbId: string
+  currentRank?: string
+  currentRankStars?: number
+  peakRank?: string
+  peakRankStars?: number
+  role?: string
+  totalMatches?: number
+  winRate?: number
+  fbLink?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -377,6 +689,18 @@ export type UserUncheckedCreateWithoutPostsInput = {
   username: string
   password: string
   name?: string | null
+  mlbbId: string
+  currentRank?: string
+  currentRankStars?: number
+  peakRank?: string
+  peakRankStars?: number
+  role?: string
+  totalMatches?: number
+  winRate?: number
+  fbLink?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -399,6 +723,18 @@ export type UserUpdateWithoutPostsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
+  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
+  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -406,6 +742,18 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
+  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
+  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
+  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -444,6 +792,18 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   username?: boolean
   password?: boolean
   name?: boolean
+  mlbbId?: boolean
+  currentRank?: boolean
+  currentRankStars?: boolean
+  peakRank?: boolean
+  peakRankStars?: boolean
+  role?: boolean
+  totalMatches?: boolean
+  winRate?: boolean
+  fbLink?: boolean
+  avatarUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -453,6 +813,18 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   username?: boolean
   password?: boolean
   name?: boolean
+  mlbbId?: boolean
+  currentRank?: boolean
+  currentRankStars?: boolean
+  peakRank?: boolean
+  peakRankStars?: boolean
+  role?: boolean
+  totalMatches?: boolean
+  winRate?: boolean
+  fbLink?: boolean
+  avatarUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -460,6 +832,18 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   username?: boolean
   password?: boolean
   name?: boolean
+  mlbbId?: boolean
+  currentRank?: boolean
+  currentRankStars?: boolean
+  peakRank?: boolean
+  peakRankStars?: boolean
+  role?: boolean
+  totalMatches?: boolean
+  winRate?: boolean
+  fbLink?: boolean
+  avatarUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -467,9 +851,21 @@ export type UserSelectScalar = {
   username?: boolean
   password?: boolean
   name?: boolean
+  mlbbId?: boolean
+  currentRank?: boolean
+  currentRankStars?: boolean
+  peakRank?: boolean
+  peakRankStars?: boolean
+  role?: boolean
+  totalMatches?: boolean
+  winRate?: boolean
+  fbLink?: boolean
+  avatarUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "password" | "name", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "password" | "name" | "mlbbId" | "currentRank" | "currentRankStars" | "peakRank" | "peakRankStars" | "role" | "totalMatches" | "winRate" | "fbLink" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -487,6 +883,18 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     username: string
     password: string
     name: string | null
+    mlbbId: string
+    currentRank: string
+    currentRankStars: number
+    peakRank: string
+    peakRankStars: number
+    role: string
+    totalMatches: number
+    winRate: number
+    fbLink: string | null
+    avatarUrl: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -915,6 +1323,18 @@ export interface UserFieldRefs {
   readonly username: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly mlbbId: Prisma.FieldRef<"User", 'String'>
+  readonly currentRank: Prisma.FieldRef<"User", 'String'>
+  readonly currentRankStars: Prisma.FieldRef<"User", 'Int'>
+  readonly peakRank: Prisma.FieldRef<"User", 'String'>
+  readonly peakRankStars: Prisma.FieldRef<"User", 'Int'>
+  readonly role: Prisma.FieldRef<"User", 'String'>
+  readonly totalMatches: Prisma.FieldRef<"User", 'Int'>
+  readonly winRate: Prisma.FieldRef<"User", 'Float'>
+  readonly fbLink: Prisma.FieldRef<"User", 'String'>
+  readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
+  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
