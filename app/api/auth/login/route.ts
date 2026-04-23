@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     if (!username || !password) {
       return NextResponse.json(
         { error: "Username and password are required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { error: "Invalid username or password" },
-        { status: 401 },
+        { status: 401 }
       );
     }
 
@@ -32,25 +32,36 @@ export async function POST(req: NextRequest) {
     if (!passwordMatch) {
       return NextResponse.json(
         { error: "Invalid username or password" },
-        { status: 401 },
+        { status: 401 }
       );
     }
 
     // Don't return the password
     const { password: _, ...userWithoutPassword } = user;
 
-    return NextResponse.json(
+    // Create response with session cookie
+    const response = NextResponse.json(
       {
         message: "Login successful",
         user: userWithoutPassword,
       },
-      { status: 200 },
+      { status: 200 }
     );
+
+    // Set session cookie (expires in 24 hours)
+    response.cookies.set("session", JSON.stringify(userWithoutPassword), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60, // 24 hours in seconds
+    });
+
+    return response;
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
