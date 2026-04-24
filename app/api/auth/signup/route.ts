@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
-import { SignupFormData, RANKS, ROLES } from "@/lib/types";
+import { SignupFormData } from "@/lib/types";
 
 export async function POST(req: NextRequest) {
   try {
@@ -70,7 +70,8 @@ export async function POST(req: NextRequest) {
     });
 
     // Don't return the password
-    const { password: _, ...userWithoutPassword } = user;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _password, ...userWithoutPassword } = user;
 
     return NextResponse.json(
       {
