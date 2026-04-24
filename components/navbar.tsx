@@ -1,13 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<{ username: string } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check if user is logged in by checking session
+    const checkSession = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch("/api/auth/session");
+        const data = await res.json();
+        if (data.user) {
+          setUser(data.user);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Session check error:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkSession();
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.ok) {
+        setUser(null);
+        setIsOpen(false);
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   const navItems = [
     { label: "Home / Feed", href: "/home" },
@@ -49,18 +92,38 @@ export default function Navbar() {
 
           {/* Desktop Auth Links */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/signin"
-              className="px-4 py-2 text-green-400 hover:text-green-300 text-sm font-bold uppercase tracking-wide transition-colors"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/signup"
-              className="px-4 py-2 bg-green-600 hover:bg-green-500 text-black text-sm font-bold rounded-lg uppercase tracking-wide transition-colors"
-            >
-              Sign Up
-            </Link>
+            {isLoading ? (
+              <div className="px-4 py-2 text-gray-400 text-sm font-bold uppercase tracking-wide">
+                Loading...
+              </div>
+            ) : user ? (
+              <>
+                <span className="px-4 py-2 text-green-400 text-sm font-bold uppercase tracking-wide">
+                  {user.username}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-500 text-black text-sm font-bold rounded-lg uppercase tracking-wide transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/signin"
+                  className="px-4 py-2 text-green-400 hover:text-green-300 text-sm font-bold uppercase tracking-wide transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="px-4 py-2 bg-green-600 hover:bg-green-500 text-black text-sm font-bold rounded-lg uppercase tracking-wide transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -94,20 +157,40 @@ export default function Navbar() {
 
               {/* Mobile Auth Links */}
               <div className="border-t border-green-600/20 p-4 space-y-2">
-                <Link
-                  href="/signin"
-                  className="block px-4 py-2 text-center bg-gray-800 text-green-400 text-sm font-bold rounded-lg uppercase tracking-wide hover:bg-gray-700 transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/signup"
-                  className="block px-4 py-2 text-center bg-green-600 text-black text-sm font-bold rounded-lg uppercase tracking-wide hover:bg-green-500 transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Sign Up
-                </Link>
+                {isLoading ? (
+                  <div className="px-4 py-2 text-center text-gray-400 text-sm font-bold uppercase tracking-wide">
+                    Loading...
+                  </div>
+                ) : user ? (
+                  <>
+                    <div className="px-4 py-2 text-center text-green-400 text-sm font-bold uppercase tracking-wide">
+                      {user.username}
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full px-4 py-2 text-center bg-red-600 text-black text-sm font-bold rounded-lg uppercase tracking-wide hover:bg-red-500 transition-colors"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/signin"
+                      className="block px-4 py-2 text-center bg-gray-800 text-green-400 text-sm font-bold rounded-lg uppercase tracking-wide hover:bg-gray-700 transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/signup"
+                      className="block px-4 py-2 text-center bg-green-600 text-black text-sm font-bold rounded-lg uppercase tracking-wide hover:bg-green-500 transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
