@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 
 export function SigninForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -23,22 +25,37 @@ export function SigninForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
     setSuccess("");
 
-    // Simulate form submission
-    setTimeout(() => {
-      if (formData.username && formData.password) {
-        setSuccess(`Welcome back, ${formData.username}!`);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!data.error) {
+        setSuccess(`Welcome back, ${data.user.username}!`);
         setFormData({ username: "", password: "" });
+        // Redirect to home page after 1 second
+        setTimeout(() => {
+          router.push("/home");
+        }, 1000);
       } else {
-        setError("Please fill in all fields");
+        setError(data.error);
       }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("An error occurred. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
   return (

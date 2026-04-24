@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     if (!username || !password) {
       return NextResponse.json(
         { error: "Username and password are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { error: "Invalid username or password" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -32,11 +32,12 @@ export async function POST(req: NextRequest) {
     if (!passwordMatch) {
       return NextResponse.json(
         { error: "Invalid username or password" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     // Don't return the password
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userWithoutPassword } = user;
 
     // Create response with session cookie
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
         message: "Login successful",
         user: userWithoutPassword,
       },
-      { status: 200 }
+      { status: 200 },
     );
 
     // Set session cookie (expires in 24 hours)
@@ -61,7 +62,7 @@ export async function POST(req: NextRequest) {
     console.error("Login error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
