@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { RANKS, ROLES, SignupFormData } from "@/lib/types";
 
 export function SignupForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<SignupFormData>({
     username: "",
     password: "",
     passwordConfirm: "",
@@ -16,7 +17,7 @@ export function SignupForm() {
     currentRankStars: 0,
     peakRank: "Warrior",
     peakRankStars: 0,
-    role: "Mid",
+    role: "Midlane",
     mlbbId: "",
     totalMatches: 0,
     winRate: 0,
@@ -28,17 +29,6 @@ export function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-
-  const RANKS = [
-    "Warrior",
-    "Elite",
-    "Master",
-    "Grand Master",
-    "Epic",
-    "Legend",
-    "Mythic",
-  ];
-  const ROLES = ["Tank", "Jungle", "Mid", "ADC", "Support"];
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -72,11 +62,30 @@ export function SignupForm() {
 
     setIsLoading(true);
 
-    // Simulate form submission with local state
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Signup failed");
+        setIsLoading(false);
+        return;
+      }
+
       setShowSuccess(true);
       setIsLoading(false);
-    }, 500);
+    } catch (err) {
+      setError("An error occurred during signup. Please try again.");
+      setIsLoading(false);
+      console.error("Signup error:", err);
+    }
   };
 
   const handleSuccessClose = () => {
