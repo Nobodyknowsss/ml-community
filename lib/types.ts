@@ -54,7 +54,7 @@ export type Scrim = {
 };
 
 export type CreateScrimFormData = {
-  squadType: "full" | "open"; // Full Squad 5v5 or OpenSquad
+  squadType: "Full Squad" | "Open Squad"; // Full Squad 5v5 or Open Squad
   teamName: string;
   teamLogo?: string;
   minRank: string;

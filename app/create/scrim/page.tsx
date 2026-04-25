@@ -8,7 +8,7 @@ import { RANKS } from "@/lib/types";
 
 export default function CreateScrimPage() {
   const [formData, setFormData] = useState<CreateScrimFormData>({
-    squadType: "full",
+    squadType: "Full Squad",
     teamName: "",
     teamLogo: undefined,
     minRank: "Legend",
@@ -53,10 +53,12 @@ export default function CreateScrimPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
 
+    // validation (keep yours)
     if (!formData.teamName.trim()) {
       setError("Team name is required");
       return;
@@ -71,11 +73,48 @@ export default function CreateScrimPage() {
     }
 
     setIsSubmitting(true);
-    // Simulate submission
-    setTimeout(() => {
+
+    try {
+      const res = await fetch("/api/scrim/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          authorId: 1, // ⚠️ change this later when you have auth
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Something went wrong");
+        setIsSubmitting(false);
+        return;
+      }
+
       setSuccess("Scrim created successfully!");
+
+      // optional: reset form after success
+      setFormData({
+        squadType: "Full Squad",
+        teamName: "",
+        teamLogo: undefined,
+        minRank: "Legend",
+        maxRank: "Mythic",
+        gameFormat: "Games",
+        gameCount: 1,
+        date: "",
+        time: "",
+      });
+
+      setLogoPreview("");
+    } catch (err) {
+      setError("Failed to create scrim");
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -97,14 +136,14 @@ export default function CreateScrimPage() {
                 <input
                   type="radio"
                   name="squadType"
-                  value="full"
-                  checked={formData.squadType === "full"}
+                  value="Full Squad"
+                  checked={formData.squadType === "Full Squad"}
                   onChange={handleChange}
                   className="hidden"
                 />
                 <div
                   className={`p-6 rounded-lg border-2 transition-all ${
-                    formData.squadType === "full"
+                    formData.squadType === "Full Squad"
                       ? "border-green-600 bg-green-600/10"
                       : "border-green-600/30 bg-gray-800/30 hover:border-green-600/60"
                   }`}
@@ -120,14 +159,14 @@ export default function CreateScrimPage() {
                 <input
                   type="radio"
                   name="squadType"
-                  value="open"
-                  checked={formData.squadType === "open"}
+                  value="Open Squad"
+                  checked={formData.squadType === "Open Squad"}
                   onChange={handleChange}
                   className="hidden"
                 />
                 <div
                   className={`p-6 rounded-lg border-2 transition-all ${
-                    formData.squadType === "open"
+                    formData.squadType === "Open Squad"
                       ? "border-green-600 bg-green-600/10"
                       : "border-green-600/30 bg-gray-800/30 hover:border-green-600/60"
                   }`}

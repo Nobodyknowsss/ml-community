@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Scrim: 'Scrim',
   Post: 'Post'
 } as const
 
@@ -89,6 +90,25 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ScrimScalarFieldEnum = {
+  id: 'id',
+  squadType: 'squadType',
+  teamName: 'teamName',
+  teamLogo: 'teamLogo',
+  minRank: 'minRank',
+  maxRank: 'maxRank',
+  gameFormat: 'gameFormat',
+  gameCount: 'gameCount',
+  date: 'date',
+  time: 'time',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ScrimScalarFieldEnum = (typeof ScrimScalarFieldEnum)[keyof typeof ScrimScalarFieldEnum]
 
 
 export const PostScalarFieldEnum = {

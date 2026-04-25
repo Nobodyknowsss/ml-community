@@ -87,7 +87,7 @@ export function SignupForm() {
 
   const handleSuccessClose = () => {
     setShowSuccess(false);
-    router.push("/profile");
+    router.push("/signin");
   };
 
   return (
@@ -367,13 +367,13 @@ export function SignupForm() {
                 Account Created!
               </h2>
               <p className="text-gray-300 mb-6">
-                Welcome {formData.username}! Redirecting to your profile...
+                Welcome {formData.username}! Redirecting to your signin page...
               </p>
               <button
                 onClick={handleSuccessClose}
                 className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-2 px-6 rounded-lg transition-colors uppercase tracking-wide"
               >
-                Go to Profile
+                Go to Sign In
               </button>
             </div>
           </div>

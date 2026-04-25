@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model Scrim
+ * 
+ */
+export type Scrim = Prisma.ScrimModel
+/**
  * Model Post
  * 
  */

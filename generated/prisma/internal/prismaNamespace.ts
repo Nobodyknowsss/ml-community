@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  Scrim: 'Scrim',
   Post: 'Post'
 } as const
 
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "post"
+    modelProps: "user" | "scrim" | "post"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -476,6 +477,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    Scrim: {
+      payload: Prisma.$ScrimPayload<ExtArgs>
+      fields: Prisma.ScrimFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ScrimFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ScrimFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>
+        }
+        findFirst: {
+          args: Prisma.ScrimFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ScrimFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>
+        }
+        findMany: {
+          args: Prisma.ScrimFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>[]
+        }
+        create: {
+          args: Prisma.ScrimCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>
+        }
+        createMany: {
+          args: Prisma.ScrimCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ScrimCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>[]
+        }
+        delete: {
+          args: Prisma.ScrimDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>
+        }
+        update: {
+          args: Prisma.ScrimUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>
+        }
+        deleteMany: {
+          args: Prisma.ScrimDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ScrimUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ScrimUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>[]
+        }
+        upsert: {
+          args: Prisma.ScrimUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScrimPayload>
+        }
+        aggregate: {
+          args: Prisma.ScrimAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateScrim>
+        }
+        groupBy: {
+          args: Prisma.ScrimGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ScrimGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ScrimCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ScrimCountAggregateOutputType> | number
         }
       }
     }
@@ -610,6 +685,25 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ScrimScalarFieldEnum = {
+  id: 'id',
+  squadType: 'squadType',
+  teamName: 'teamName',
+  teamLogo: 'teamLogo',
+  minRank: 'minRank',
+  maxRank: 'maxRank',
+  gameFormat: 'gameFormat',
+  gameCount: 'gameCount',
+  date: 'date',
+  time: 'time',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ScrimScalarFieldEnum = (typeof ScrimScalarFieldEnum)[keyof typeof ScrimScalarFieldEnum]
 
 
 export const PostScalarFieldEnum = {
@@ -825,6 +919,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  scrim?: Prisma.ScrimOmit
   post?: Prisma.PostOmit
 }
 
