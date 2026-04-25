@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { Clock, Globe } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface ScrimCardProps {
   id?: string;
@@ -42,6 +44,29 @@ export function ScrimCard({
   maxRankIcon,
   scrim,
 }: ScrimCardProps) {
+  const router = useRouter();
+  const [isJoining, setIsJoining] = useState(false);
+
+  const handleJoinScrim = async () => {
+    setIsJoining(true);
+    try {
+      // Check if user is logged in
+      const res = await fetch("/api/auth/session");
+      
+      if (!res.ok) {
+        // Not logged in, redirect to signup
+        router.push("/signup");
+      } else {
+        // User is logged in, functionality to be added later
+        console.log("User joined scrim - functionality pending");
+      }
+    } catch (error) {
+      console.error("Error checking session:", error);
+      router.push("/signup");
+    } finally {
+      setIsJoining(false);
+    }
+  };
   // If scrim prop is provided, render ScrimPost format
   if (scrim) {
     return (
@@ -83,6 +108,15 @@ export function ScrimCard({
             </span>
             <span className="text-xs text-gray-500">{scrim.timestamp}</span>
           </div>
+
+          {/* Join Scrim Button */}
+          <button
+            onClick={handleJoinScrim}
+            disabled={isJoining}
+            className="w-full mt-4 px-4 py-2 bg-green-600 hover:bg-green-500 disabled:bg-green-700 text-black font-bold rounded-lg uppercase tracking-wide transition-colors"
+          >
+            {isJoining ? "Joining..." : "Join Scrim"}
+          </button>
         </div>
       </div>
     );
@@ -186,6 +220,15 @@ export function ScrimCard({
             <span className="text-sm font-semibold">{time}</span>
           </div>
         )}
+
+        {/* Join Scrim Button */}
+        <button
+          onClick={handleJoinScrim}
+          disabled={isJoining}
+          className="w-full mt-4 px-4 py-2 bg-green-600 hover:bg-green-500 disabled:bg-green-700 text-black font-bold rounded-lg uppercase tracking-wide transition-colors"
+        >
+          {isJoining ? "Joining..." : "Join Scrim"}
+        </button>
       </div>
     </div>
   );

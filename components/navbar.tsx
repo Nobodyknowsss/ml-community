@@ -54,10 +54,10 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Home", href: "/home" },
-    { label: "Create", href: "/create" },
+    { label: "Create", href: "/create", protected: true },
     { label: "Scrims", href: "/scrims" },
-    { label: "Profile", href: "/profile" },
-    { label: "Chat", href: "/chat" },
+    { label: "Profile", href: "/profile", protected: true },
+    { label: "Chat", href: "/chat", protected: true },
   ];
 
   const isActive = (href: string) => pathname === href;
@@ -76,19 +76,21 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`px-4 py-2 text-sm font-semibold transition-all uppercase tracking-wide ${
-                  isActive(item.href)
-                    ? "text-black bg-green-500 border-b-2 border-green-400"
-                    : "text-gray-300 hover:text-green-400 hover:bg-green-600/10"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems
+              .filter((item) => !item.protected || user)
+              .map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-4 py-2 text-sm font-semibold transition-all uppercase tracking-wide ${
+                    isActive(item.href)
+                      ? "text-black bg-green-500 border-b-2 border-green-400"
+                      : "text-gray-300 hover:text-green-400 hover:bg-green-600/10"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
           </div>
 
           {/* Desktop Auth Links */}
@@ -141,20 +143,22 @@ export default function Navbar() {
         {isOpen && (
           <div className="md:hidden border-t border-green-600/30 bg-gray-900">
             <div className="flex flex-col">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-3 text-sm font-semibold transition-all uppercase tracking-wide border-b border-green-600/20 ${
-                    isActive(item.href)
-                      ? "text-black bg-green-500 border-l-4 border-l-green-400"
-                      : "text-gray-300 hover:text-green-400 hover:bg-green-600/10"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems
+                .filter((item) => !item.protected || user)
+                .map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`px-4 py-3 text-sm font-semibold transition-all uppercase tracking-wide border-b border-green-600/20 ${
+                      isActive(item.href)
+                        ? "text-black bg-green-500 border-l-4 border-l-green-400"
+                        : "text-gray-300 hover:text-green-400 hover:bg-green-600/10"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
 
               {/* Mobile Auth Links */}
               <div className="border-t border-green-600/20 p-4 space-y-2">

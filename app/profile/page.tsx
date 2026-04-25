@@ -23,6 +23,7 @@ const DEFAULT_AVATARS = ["👾", "🎮", "👑", "⚡", "🔥", "💎", "🎯", 
 
 export default function ProfilePage() {
   const [username, setUsername] = useState(MOCK_PROFILE.username);
+  const [ign, setIgn] = useState("PlayerIGN");
   const [mlbbId, setMlbbId] = useState(MOCK_PROFILE.mlbbId);
   const [role, setRole] = useState(MOCK_PROFILE.role);
   const [currentRank, setCurrentRank] = useState(MOCK_PROFILE.currentRank);
@@ -30,9 +31,12 @@ export default function ProfilePage() {
   const [totalMatches, setTotalMatches] = useState(MOCK_PROFILE.totalMatches);
   const [winRate, setWinRate] = useState(MOCK_PROFILE.winRate);
   const [avatarUrl, setAvatarUrl] = useState(MOCK_PROFILE.avatarUrl);
-  const [birthday, setBirthday] = useState("");
+  const [fbLink, setFbLink] = useState("");
   const [country, setCountry] = useState("Philippines");
   const [language, setLanguage] = useState("EN");
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [saveSuccess, setSaveSuccess] = useState("");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -49,6 +53,49 @@ export default function ProfilePage() {
     setAvatarUrl(MOCK_PROFILE.avatarUrl);
   };
 
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaveError("");
+    setSaveSuccess("");
+    setIsSaving(true);
+
+    try {
+      const response = await fetch("/api/user/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          ign,
+          mlbbId,
+          currentRank,
+          peakRank,
+          role,
+          totalMatches,
+          winRate,
+          fbLink,
+          avatarUrl,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setSaveError(data.error || "Failed to save profile");
+        return;
+      }
+
+      setSaveSuccess("Profile saved successfully!");
+      setTimeout(() => setSaveSuccess(""), 3000);
+    } catch (err) {
+      setSaveError("Failed to save profile");
+      console.error("Save error:", err);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black pt-24 pb-12 px-4">
       <div className="max-w-2xl mx-auto">
@@ -56,7 +103,20 @@ export default function ProfilePage() {
           Profile Settings
         </h1>
 
-        <form className="space-y-8">
+        <form onSubmit={handleSave} className="space-y-8">
+          {/* Error Message */}
+          {saveError && (
+            <div className="p-4 bg-red-600/20 border border-red-600/50 rounded-lg text-red-400 text-sm font-semibold">
+              {saveError}
+            </div>
+          )}
+
+          {/* Success Message */}
+          {saveSuccess && (
+            <div className="p-4 bg-green-600/20 border border-green-600/50 rounded-lg text-green-400 text-sm font-semibold">
+              {saveSuccess}
+            </div>
+          )}
           {/* Personal Information Section */}
           <section className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
             <h2 className="text-2xl font-bold text-green-400 uppercase tracking-wide mb-8">
@@ -121,15 +181,25 @@ export default function ProfilePage() {
               </div>
             </div>
 
+            {/* Username */}
+            <div className="mb-6">
+              <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
+                Username
+              </label>
+              <div className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400">
+                {username}
+              </div>
+            </div>
+
             {/* IGN*/}
             <div className="mb-6">
               <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
-                IGN
+                In-Game Name (IGN)
               </label>
               <input
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={ign}
+                onChange={(e) => setIgn(e.target.value)}
                 className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
               />
             </div>
@@ -230,15 +300,16 @@ export default function ProfilePage() {
               />
             </div>
 
-            {/* Birthday */}
+            {/* Facebook Link */}
             <div className="mb-6">
               <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
-                Birthday
+                Facebook Link
               </label>
               <input
-                type="date"
-                value={birthday}
-                onChange={(e) => setBirthday(e.target.value)}
+                type="url"
+                value={fbLink}
+                onChange={(e) => setFbLink(e.target.value)}
+                placeholder="https://facebook.com/profile"
                 className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
               />
             </div>
@@ -285,9 +356,10 @@ export default function ProfilePage() {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-lg uppercase tracking-wide transition-colors"
+              disabled={isSaving}
+              className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 disabled:bg-yellow-600 text-black font-bold rounded-lg uppercase tracking-wide transition-colors"
             >
-              Save
+              {isSaving ? "Saving..." : "Save"}
             </button>
           </div>
         </form>
