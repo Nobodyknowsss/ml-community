@@ -1,0 +1,58 @@
+import { Scrim } from "@/lib/types";
+
+export const mockScrims: Scrim[] = [
+  {
+    id: "1",
+    teamName: "Cribbers",
+    region: "Europe",
+    gameType: "BO1",
+    minRank: "Warrior",
+    maxRank: "Elite",
+    time: "April 20 (03:30 PM - 04:00 PM)",
+  },
+  {
+    id: "2",
+    teamName: "Vexium Force",
+    region: "Europe",
+    gameType: "BO3",
+    minRank: "Master",
+    maxRank: "Legend",
+    time: "April 18 (02:00 PM - 04:00 PM)",
+  },
+  {
+    id: "3",
+    teamName: "Monarch Esport",
+    region: "Europe",
+    gameType: "BO3",
+    minRank: "Epic",
+    maxRank: "Mythic",
+    time: "April 18 (08:00 AM - 12:30 PM)",
+  },
+  {
+    id: "4",
+    teamName: "Shadow Knights",
+    region: "Europe",
+    gameType: "2Games",
+    minRank: "Grand Master",
+    maxRank: "Mythic",
+    time: "April 19 (06:00 PM - 08:00 PM)",
+  },
+  {
+    id: "5",
+    teamName: "Phoenix Rising",
+    region: "Europe",
+    gameType: "BO1",
+    minRank: "Elite",
+    maxRank: "Master",
+    time: "April 21 (01:00 PM - 02:00 PM)",
+  },
+  {
+    id: "6",
+    teamName: "Dragon Slayers",
+    region: "Europe",
+    gameType: "BO3",
+    minRank: "Legend",
+    maxRank: "Mythic",
+    time: "April 22 (07:00 PM - 09:00 PM)",
+  },
+];

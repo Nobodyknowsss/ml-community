@@ -8,8 +8,10 @@ export const metadata: Metadata = {
 
 export default function SigninPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 py-8">
-      <SigninForm />
+    <main className="min-h-screen bg-black pt-24 pb-12 px-4">
+      <div className="max-w-2xl mx-auto">
+        <SigninForm />
+      </div>
     </main>
   );
 }

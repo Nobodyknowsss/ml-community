@@ -1,219 +1,362 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Image from "next/image";
+import { Upload } from "lucide-react";
+import type { CreateScrimFormData } from "@/lib/types";
+import { RANKS } from "@/lib/types";
 
-export default function LookingForScrimPage() {
-  const [averageRank, setAverageRank] = useState("warrior");
-  const [mythicStars, setMythicStars] = useState("");
-  const [teamName, setTeamName] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [description, setDescription] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export default function CreateScrimPage() {
+  const [formData, setFormData] = useState<CreateScrimFormData>({
+    squadType: "full",
+    teamName: "",
+    teamLogo: undefined,
+    minRank: "Legend",
+    maxRank: "Mythic",
+    gameFormat: "Games",
+    gameCount: 1,
+    date: "",
+    time: "",
+  });
+
+  const [logoPreview, setLogoPreview] = useState<string>("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLogoPreview(reader.result as string);
+        setFormData({ ...formData, teamLogo: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDeleteLogo = () => {
+    setLogoPreview("");
+    setFormData({ ...formData, teamLogo: undefined });
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "gameCount" ? parseInt(value, 10) : value,
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setSuccess("");
-    setIsSubmitting(true);
 
-    // Validate form
-    if (!teamName.trim()) {
+    if (!formData.teamName.trim()) {
       setError("Team name is required");
-      setIsSubmitting(false);
       return;
     }
-    if (!date) {
+    if (!formData.date) {
       setError("Date is required");
-      setIsSubmitting(false);
       return;
     }
-    if (!time) {
+    if (!formData.time) {
       setError("Time is required");
-      setIsSubmitting(false);
-      return;
-    }
-    if (!description.trim()) {
-      setError("Description is required");
-      setIsSubmitting(false);
       return;
     }
 
-    // Simulate form submission
+    setIsSubmitting(true);
+    // Simulate submission
     setTimeout(() => {
-      setSuccess("Scrim posted successfully!");
-      setTeamName("");
-      setDate("");
-      setTime("");
-      setDescription("");
-      setMythicStars("");
-      setAverageRank("warrior");
+      setSuccess("Scrim created successfully!");
       setIsSubmitting(false);
-    }, 800);
+    }, 1000);
   };
 
   return (
-    <div className="min-h-screen bg-black p-4 pt-20 md:p-6 md:pt-24">
+    <div className="min-h-screen bg-black pt-24 pb-12 px-4">
       <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="mb-6 md:mb-8">
-          <Link
-            href="/create"
-            className="flex items-center gap-2 text-green-400 hover:text-green-300 mb-4 transition-colors"
-          >
-            <ArrowLeft size={20} />
-            <span className="font-semibold">Back</span>
-          </Link>
-          <h1 className="text-3xl md:text-4xl font-bold text-green-400 uppercase tracking-wider">
-            Looking for Scrim
-          </h1>
-          <p className="text-gray-400 text-sm md:text-base mt-2">
-            Find players to practice and compete with
-          </p>
-        </div>
+        <h1 className="text-4xl font-bold text-green-400 uppercase tracking-widest mb-12">
+          Create Scrim
+        </h1>
 
-        {/* Alert Messages */}
-        {error && (
-          <div className="mb-6 p-4 bg-red-900/30 border border-red-500/50 rounded-lg text-red-300 text-sm">
-            {error}
-          </div>
-        )}
-        {success && (
-          <div className="mb-6 p-4 bg-green-900/30 border border-green-500/50 rounded-lg text-green-300 text-sm">
-            {success}
-          </div>
-        )}
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Squad Type Section */}
+          <section className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
+            <h2 className="text-2xl font-bold text-green-400 uppercase tracking-wide mb-8">
+              Squad Type
+            </h2>
 
-        {/* Form */}
-        <div className="bg-gray-900 border border-green-600/30 rounded-lg p-6 md:p-8 shadow-lg">
-          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-            {/* Team Name */}
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-300 block">
-                Team / Squad Name
+            <div className="grid md:grid-cols-2 gap-4">
+              <label className="relative cursor-pointer">
+                <input
+                  type="radio"
+                  name="squadType"
+                  value="full"
+                  checked={formData.squadType === "full"}
+                  onChange={handleChange}
+                  className="hidden"
+                />
+                <div
+                  className={`p-6 rounded-lg border-2 transition-all ${
+                    formData.squadType === "full"
+                      ? "border-green-600 bg-green-600/10"
+                      : "border-green-600/30 bg-gray-800/30 hover:border-green-600/60"
+                  }`}
+                >
+                  <p className="text-lg font-bold text-green-400 mb-2">
+                    Full Squad
+                  </p>
+                  <p className="text-sm text-gray-400">5v5 Complete Squad</p>
+                </div>
               </label>
-              <Input
-                placeholder="Your team name"
-                value={teamName}
-                onChange={(e) => setTeamName(e.target.value)}
-                required
-                className="bg-gray-800 border border-green-600/30 text-gray-100 placeholder-gray-500"
-              />
+
+              <label className="relative cursor-pointer">
+                <input
+                  type="radio"
+                  name="squadType"
+                  value="open"
+                  checked={formData.squadType === "open"}
+                  onChange={handleChange}
+                  className="hidden"
+                />
+                <div
+                  className={`p-6 rounded-lg border-2 transition-all ${
+                    formData.squadType === "open"
+                      ? "border-green-600 bg-green-600/10"
+                      : "border-green-600/30 bg-gray-800/30 hover:border-green-600/60"
+                  }`}
+                >
+                  <p className="text-lg font-bold text-green-400 mb-2">
+                    Open Squad
+                  </p>
+                  <p className="text-sm text-gray-400">Looking for Players</p>
+                </div>
+              </label>
+            </div>
+          </section>
+
+          {/* Team Information Section */}
+          <section className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
+            <h2 className="text-2xl font-bold text-green-400 uppercase tracking-wide mb-8">
+              Team Information
+            </h2>
+
+            {/* Team Logo */}
+            <div className="mb-8">
+              <label className="block text-gray-300 font-semibold mb-4 uppercase tracking-wide">
+                Team Logo
+              </label>
+              <div className="flex items-center gap-6">
+                {logoPreview ? (
+                  <div className="relative">
+                    <div className="w-24 h-24 rounded-lg border-2 border-green-600 overflow-hidden">
+                      <Image
+                        src={logoPreview}
+                        alt="Team Logo"
+                        width={96}
+                        height={96}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleDeleteLogo}
+                      className="text-red-500 hover:text-red-400 font-semibold text-sm underline transition-colors ml-4"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ) : (
+                  <label className="w-24 h-24 rounded-lg border-2 border-dashed border-green-600/50 flex items-center justify-center cursor-pointer hover:border-green-600 transition-colors">
+                    <Upload size={32} className="text-green-600/50" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoUpload}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+              </div>
             </div>
 
-            {/* Date and Time */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-300 block">
+            {/* Team Name */}
+            <div className="mb-6">
+              <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
+                Team Name
+              </label>
+              <input
+                type="text"
+                name="teamName"
+                value={formData.teamName}
+                onChange={handleChange}
+                placeholder="Enter team name"
+                className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:border-green-600 transition-colors"
+              />
+            </div>
+          </section>
+
+          {/* Rank Section */}
+          <section className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
+            <h2 className="text-2xl font-bold text-green-400 uppercase tracking-wide mb-8">
+              Rank Requirements
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Min Rank */}
+              <div>
+                <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
+                  Minimum Rank
+                </label>
+                <select
+                  name="minRank"
+                  value={formData.minRank}
+                  onChange={handleChange}
+                  className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
+                >
+                  {RANKS.map((rank) => (
+                    <option key={rank} value={rank}>
+                      {rank}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Max Rank */}
+              <div>
+                <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
+                  Maximum Rank
+                </label>
+                <select
+                  name="maxRank"
+                  value={formData.maxRank}
+                  onChange={handleChange}
+                  className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
+                >
+                  {RANKS.map((rank) => (
+                    <option key={rank} value={rank}>
+                      {rank}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </section>
+
+          {/* Game Type Section */}
+          <section className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
+            <h2 className="text-2xl font-bold text-green-400 uppercase tracking-wide mb-8">
+              Game Format
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Format Type */}
+              <div>
+                <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
+                  Format Type
+                </label>
+                <select
+                  name="gameFormat"
+                  value={formData.gameFormat}
+                  onChange={handleChange}
+                  className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
+                >
+                  <option value="Games">Games</option>
+                  <option value="Best of">Best of</option>
+                </select>
+              </div>
+
+              {/* Game Count */}
+              <div>
+                <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
+                  Number of{" "}
+                  {formData.gameFormat === "Best of" ? "Games" : "Games"}
+                </label>
+                <input
+                  type="number"
+                  name="gameCount"
+                  value={formData.gameCount}
+                  onChange={handleChange}
+                  min="1"
+                  max="100"
+                  className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
+                />
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-500 mt-4">
+              Examples: 1 Game, 3 Games, Best of 5, Best of 7, etc.
+            </p>
+          </section>
+
+          {/* Date & Time Section */}
+          <section className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
+            <h2 className="text-2xl font-bold text-green-400 uppercase tracking-wide mb-8">
+              Schedule
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Date */}
+              <div>
+                <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
                   Date
                 </label>
-                <Input
+                <input
                   type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  required
-                  className="bg-gray-800 border border-green-600/30 text-gray-100 placeholder-gray-500"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
                 />
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-300 block">
+
+              {/* Time */}
+              <div>
+                <label className="block text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wide">
                   Time
                 </label>
-                <Input
+                <input
                   type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  required
-                  className="bg-gray-800 border border-green-600/30 text-gray-100 placeholder-gray-500"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                  className="w-full bg-gray-800/50 border border-green-600/30 rounded-lg px-4 py-2 text-green-400 focus:outline-none focus:border-green-600 transition-colors"
                 />
               </div>
             </div>
+          </section>
 
-            {/* Average Rank */}
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-300 block">
-                Average Rank
-              </label>
-              <select
-                value={averageRank}
-                onChange={(e) => setAverageRank(e.target.value)}
-                className="w-full bg-gray-800 border border-green-600/30 text-gray-100 px-3 py-2 rounded-lg focus:border-green-500 transition-colors"
-              >
-                <option value="warrior">Warrior</option>
-                <option value="elite">Elite</option>
-                <option value="master">Master</option>
-                <option value="grandmaster">Grand Master</option>
-                <option value="epic">Epic</option>
-                <option value="legend">Legend</option>
-                <option value="mythic">Mythic</option>
-              </select>
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-600/20 border border-red-600/50 rounded-lg p-4">
+              <p className="text-red-400 text-sm font-semibold">{error}</p>
             </div>
+          )}
 
-            {/* Mythic Stars (conditional) */}
-            {averageRank === "mythic" && (
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-300 block">
-                  Mythic Stars
-                </label>
-                <Input
-                  type="number"
-                  min="0"
-                  max="999"
-                  placeholder="e.g., 50"
-                  value={mythicStars}
-                  onChange={(e) => setMythicStars(e.target.value)}
-                  className="bg-gray-800 border border-green-600/30 text-gray-100 placeholder-gray-500"
-                />
-              </div>
-            )}
-
-            {/* Description */}
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-300 block">
-                Description / Details
-              </label>
-              <textarea
-                placeholder="Tell others about your team, playstyle, requirements, and what you're looking for..."
-                rows={6}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="w-full bg-gray-800 border border-green-600/30 text-gray-100 placeholder-gray-500 rounded-lg p-3 focus:border-green-500 focus:ring-1 focus:ring-green-500/50 transition-colors"
-              />
+          {/* Success Message */}
+          {success && (
+            <div className="bg-green-600/20 border border-green-600/50 rounded-lg p-4">
+              <p className="text-green-400 text-sm font-semibold">{success}</p>
             </div>
+          )}
 
-            {/* Buttons */}
-            <div className="flex gap-3 pt-4">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex-1 bg-green-600 hover:bg-green-500 disabled:bg-gray-700 disabled:cursor-not-allowed text-black font-bold py-3 rounded-lg transition-colors uppercase tracking-widest text-sm flex items-center justify-center gap-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
-                    <span>Posting...</span>
-                  </>
-                ) : (
-                  "Post Scrim"
-                )}
-              </button>
-              <Link
-                href="/create"
-                className={`px-6 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold rounded-lg transition-colors ${
-                  isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-              >
-                Cancel
-              </Link>
-            </div>
-          </form>
-        </div>
+          {/* Submit Button */}
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 disabled:bg-yellow-600 text-black font-bold rounded-lg uppercase tracking-wide transition-colors"
+            >
+              {isSubmitting ? "Creating..." : "Create Scrim"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

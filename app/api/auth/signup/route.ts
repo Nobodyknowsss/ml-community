@@ -56,11 +56,10 @@ export async function POST(req: NextRequest) {
       data: {
         username: formData.username,
         password: hashedPassword,
+        ign: formData.ign,
         mlbbId: formData.mlbbId,
         currentRank: formData.currentRank,
-        currentRankStars: formData.currentRankStars,
         peakRank: formData.peakRank,
-        peakRankStars: formData.peakRankStars,
         role: formData.role,
         totalMatches: formData.totalMatches,
         winRate: formData.winRate,

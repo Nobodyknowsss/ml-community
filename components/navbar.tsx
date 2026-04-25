@@ -53,8 +53,9 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { label: "Home / Feed", href: "/home" },
+    { label: "Home", href: "/home" },
     { label: "Create", href: "/create" },
+    { label: "Scrims", href: "/scrims" },
     { label: "Profile", href: "/profile" },
     { label: "Chat", href: "/chat" },
   ];

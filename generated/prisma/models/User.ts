@@ -28,16 +28,12 @@ export type AggregateUser = {
 
 export type UserAvgAggregateOutputType = {
   id: number | null
-  currentRankStars: number | null
-  peakRankStars: number | null
   totalMatches: number | null
   winRate: number | null
 }
 
 export type UserSumAggregateOutputType = {
   id: number | null
-  currentRankStars: number | null
-  peakRankStars: number | null
   totalMatches: number | null
   winRate: number | null
 }
@@ -46,12 +42,10 @@ export type UserMinAggregateOutputType = {
   id: number | null
   username: string | null
   password: string | null
-  name: string | null
+  ign: string | null
   mlbbId: string | null
   currentRank: string | null
-  currentRankStars: number | null
   peakRank: string | null
-  peakRankStars: number | null
   role: string | null
   totalMatches: number | null
   winRate: number | null
@@ -65,12 +59,10 @@ export type UserMaxAggregateOutputType = {
   id: number | null
   username: string | null
   password: string | null
-  name: string | null
+  ign: string | null
   mlbbId: string | null
   currentRank: string | null
-  currentRankStars: number | null
   peakRank: string | null
-  peakRankStars: number | null
   role: string | null
   totalMatches: number | null
   winRate: number | null
@@ -84,12 +76,10 @@ export type UserCountAggregateOutputType = {
   id: number
   username: number
   password: number
-  name: number
+  ign: number
   mlbbId: number
   currentRank: number
-  currentRankStars: number
   peakRank: number
-  peakRankStars: number
   role: number
   totalMatches: number
   winRate: number
@@ -103,16 +93,12 @@ export type UserCountAggregateOutputType = {
 
 export type UserAvgAggregateInputType = {
   id?: true
-  currentRankStars?: true
-  peakRankStars?: true
   totalMatches?: true
   winRate?: true
 }
 
 export type UserSumAggregateInputType = {
   id?: true
-  currentRankStars?: true
-  peakRankStars?: true
   totalMatches?: true
   winRate?: true
 }
@@ -121,12 +107,10 @@ export type UserMinAggregateInputType = {
   id?: true
   username?: true
   password?: true
-  name?: true
+  ign?: true
   mlbbId?: true
   currentRank?: true
-  currentRankStars?: true
   peakRank?: true
-  peakRankStars?: true
   role?: true
   totalMatches?: true
   winRate?: true
@@ -140,12 +124,10 @@ export type UserMaxAggregateInputType = {
   id?: true
   username?: true
   password?: true
-  name?: true
+  ign?: true
   mlbbId?: true
   currentRank?: true
-  currentRankStars?: true
   peakRank?: true
-  peakRankStars?: true
   role?: true
   totalMatches?: true
   winRate?: true
@@ -159,12 +141,10 @@ export type UserCountAggregateInputType = {
   id?: true
   username?: true
   password?: true
-  name?: true
+  ign?: true
   mlbbId?: true
   currentRank?: true
-  currentRankStars?: true
   peakRank?: true
-  peakRankStars?: true
   role?: true
   totalMatches?: true
   winRate?: true
@@ -265,12 +245,10 @@ export type UserGroupByOutputType = {
   id: number
   username: string
   password: string
-  name: string | null
+  ign: string
   mlbbId: string
   currentRank: string
-  currentRankStars: number
   peakRank: string
-  peakRankStars: number
   role: string
   totalMatches: number
   winRate: number
@@ -307,12 +285,10 @@ export type UserWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   username?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringNullableFilter<"User"> | string | null
+  ign?: Prisma.StringFilter<"User"> | string
   mlbbId?: Prisma.StringFilter<"User"> | string
   currentRank?: Prisma.StringFilter<"User"> | string
-  currentRankStars?: Prisma.IntFilter<"User"> | number
   peakRank?: Prisma.StringFilter<"User"> | string
-  peakRankStars?: Prisma.IntFilter<"User"> | number
   role?: Prisma.StringFilter<"User"> | string
   totalMatches?: Prisma.IntFilter<"User"> | number
   winRate?: Prisma.FloatFilter<"User"> | number
@@ -320,19 +296,16 @@ export type UserWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  posts?: Prisma.PostListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
+  ign?: Prisma.SortOrder
   mlbbId?: Prisma.SortOrder
   currentRank?: Prisma.SortOrder
-  currentRankStars?: Prisma.SortOrder
   peakRank?: Prisma.SortOrder
-  peakRankStars?: Prisma.SortOrder
   role?: Prisma.SortOrder
   totalMatches?: Prisma.SortOrder
   winRate?: Prisma.SortOrder
@@ -340,7 +313,6 @@ export type UserOrderByWithRelationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  posts?: Prisma.PostOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -350,12 +322,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   password?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringNullableFilter<"User"> | string | null
+  ign?: Prisma.StringFilter<"User"> | string
   mlbbId?: Prisma.StringFilter<"User"> | string
   currentRank?: Prisma.StringFilter<"User"> | string
-  currentRankStars?: Prisma.IntFilter<"User"> | number
   peakRank?: Prisma.StringFilter<"User"> | string
-  peakRankStars?: Prisma.IntFilter<"User"> | number
   role?: Prisma.StringFilter<"User"> | string
   totalMatches?: Prisma.IntFilter<"User"> | number
   winRate?: Prisma.FloatFilter<"User"> | number
@@ -363,19 +333,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  posts?: Prisma.PostListRelationFilter
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
+  ign?: Prisma.SortOrder
   mlbbId?: Prisma.SortOrder
   currentRank?: Prisma.SortOrder
-  currentRankStars?: Prisma.SortOrder
   peakRank?: Prisma.SortOrder
-  peakRankStars?: Prisma.SortOrder
   role?: Prisma.SortOrder
   totalMatches?: Prisma.SortOrder
   winRate?: Prisma.SortOrder
@@ -397,12 +364,10 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
-  name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  ign?: Prisma.StringWithAggregatesFilter<"User"> | string
   mlbbId?: Prisma.StringWithAggregatesFilter<"User"> | string
   currentRank?: Prisma.StringWithAggregatesFilter<"User"> | string
-  currentRankStars?: Prisma.IntWithAggregatesFilter<"User"> | number
   peakRank?: Prisma.StringWithAggregatesFilter<"User"> | string
-  peakRankStars?: Prisma.IntWithAggregatesFilter<"User"> | number
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
   totalMatches?: Prisma.IntWithAggregatesFilter<"User"> | number
   winRate?: Prisma.FloatWithAggregatesFilter<"User"> | number
@@ -415,12 +380,10 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   username: string
   password: string
-  name?: string | null
+  ign: string
   mlbbId: string
   currentRank?: string
-  currentRankStars?: number
   peakRank?: string
-  peakRankStars?: number
   role?: string
   totalMatches?: number
   winRate?: number
@@ -428,19 +391,16 @@ export type UserCreateInput = {
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: number
   username: string
   password: string
-  name?: string | null
+  ign: string
   mlbbId: string
   currentRank?: string
-  currentRankStars?: number
   peakRank?: string
-  peakRankStars?: number
   role?: string
   totalMatches?: number
   winRate?: number
@@ -448,18 +408,15 @@ export type UserUncheckedCreateInput = {
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ign?: Prisma.StringFieldUpdateOperationsInput | string
   mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
   currentRank?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   peakRank?: Prisma.StringFieldUpdateOperationsInput | string
-  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.StringFieldUpdateOperationsInput | string
   totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
   winRate?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -467,19 +424,16 @@ export type UserUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ign?: Prisma.StringFieldUpdateOperationsInput | string
   mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
   currentRank?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   peakRank?: Prisma.StringFieldUpdateOperationsInput | string
-  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.StringFieldUpdateOperationsInput | string
   totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
   winRate?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -487,19 +441,16 @@ export type UserUncheckedUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: number
   username: string
   password: string
-  name?: string | null
+  ign: string
   mlbbId: string
   currentRank?: string
-  currentRankStars?: number
   peakRank?: string
-  peakRankStars?: number
   role?: string
   totalMatches?: number
   winRate?: number
@@ -512,12 +463,10 @@ export type UserCreateManyInput = {
 export type UserUpdateManyMutationInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ign?: Prisma.StringFieldUpdateOperationsInput | string
   mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
   currentRank?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   peakRank?: Prisma.StringFieldUpdateOperationsInput | string
-  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.StringFieldUpdateOperationsInput | string
   totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
   winRate?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -531,12 +480,10 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ign?: Prisma.StringFieldUpdateOperationsInput | string
   mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
   currentRank?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   peakRank?: Prisma.StringFieldUpdateOperationsInput | string
-  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.StringFieldUpdateOperationsInput | string
   totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
   winRate?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -550,12 +497,10 @@ export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  ign?: Prisma.SortOrder
   mlbbId?: Prisma.SortOrder
   currentRank?: Prisma.SortOrder
-  currentRankStars?: Prisma.SortOrder
   peakRank?: Prisma.SortOrder
-  peakRankStars?: Prisma.SortOrder
   role?: Prisma.SortOrder
   totalMatches?: Prisma.SortOrder
   winRate?: Prisma.SortOrder
@@ -567,8 +512,6 @@ export type UserCountOrderByAggregateInput = {
 
 export type UserAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  currentRankStars?: Prisma.SortOrder
-  peakRankStars?: Prisma.SortOrder
   totalMatches?: Prisma.SortOrder
   winRate?: Prisma.SortOrder
 }
@@ -577,12 +520,10 @@ export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  ign?: Prisma.SortOrder
   mlbbId?: Prisma.SortOrder
   currentRank?: Prisma.SortOrder
-  currentRankStars?: Prisma.SortOrder
   peakRank?: Prisma.SortOrder
-  peakRankStars?: Prisma.SortOrder
   role?: Prisma.SortOrder
   totalMatches?: Prisma.SortOrder
   winRate?: Prisma.SortOrder
@@ -596,12 +537,10 @@ export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  ign?: Prisma.SortOrder
   mlbbId?: Prisma.SortOrder
   currentRank?: Prisma.SortOrder
-  currentRankStars?: Prisma.SortOrder
   peakRank?: Prisma.SortOrder
-  peakRankStars?: Prisma.SortOrder
   role?: Prisma.SortOrder
   totalMatches?: Prisma.SortOrder
   winRate?: Prisma.SortOrder
@@ -613,23 +552,12 @@ export type UserMinOrderByAggregateInput = {
 
 export type UserSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  currentRankStars?: Prisma.SortOrder
-  peakRankStars?: Prisma.SortOrder
   totalMatches?: Prisma.SortOrder
   winRate?: Prisma.SortOrder
 }
 
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
-}
-
 export type StringFieldUpdateOperationsInput = {
   set?: string
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -648,155 +576,24 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type UserCreateNestedOneWithoutPostsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutPostsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostsInput
-  upsert?: Prisma.UserUpsertWithoutPostsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPostsInput, Prisma.UserUpdateWithoutPostsInput>, Prisma.UserUncheckedUpdateWithoutPostsInput>
-}
-
-export type UserCreateWithoutPostsInput = {
-  username: string
-  password: string
-  name?: string | null
-  mlbbId: string
-  currentRank?: string
-  currentRankStars?: number
-  peakRank?: string
-  peakRankStars?: number
-  role?: string
-  totalMatches?: number
-  winRate?: number
-  fbLink?: string | null
-  avatarUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type UserUncheckedCreateWithoutPostsInput = {
-  id?: number
-  username: string
-  password: string
-  name?: string | null
-  mlbbId: string
-  currentRank?: string
-  currentRankStars?: number
-  peakRank?: string
-  peakRankStars?: number
-  role?: string
-  totalMatches?: number
-  winRate?: number
-  fbLink?: string | null
-  avatarUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type UserCreateOrConnectWithoutPostsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
-}
-
-export type UserUpsertWithoutPostsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutPostsInput, Prisma.UserUncheckedUpdateWithoutPostsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutPostsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutPostsInput, Prisma.UserUncheckedUpdateWithoutPostsInput>
-}
-
-export type UserUpdateWithoutPostsInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
-  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
-  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
-  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type UserUncheckedUpdateWithoutPostsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mlbbId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRank?: Prisma.StringFieldUpdateOperationsInput | string
-  currentRankStars?: Prisma.IntFieldUpdateOperationsInput | number
-  peakRank?: Prisma.StringFieldUpdateOperationsInput | string
-  peakRankStars?: Prisma.IntFieldUpdateOperationsInput | number
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  totalMatches?: Prisma.IntFieldUpdateOperationsInput | number
-  winRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  fbLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-
-/**
- * Count Type UserCountOutputType
- */
-
-export type UserCountOutputType = {
-  posts: number
-}
-
-export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  posts?: boolean | UserCountOutputTypeCountPostsArgs
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserCountOutputType
-   */
-  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PostWhereInput
-}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   username?: boolean
   password?: boolean
-  name?: boolean
+  ign?: boolean
   mlbbId?: boolean
   currentRank?: boolean
-  currentRankStars?: boolean
   peakRank?: boolean
-  peakRankStars?: boolean
   role?: boolean
   totalMatches?: boolean
   winRate?: boolean
@@ -804,20 +601,16 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  posts?: boolean | Prisma.User$postsArgs<ExtArgs>
-  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   username?: boolean
   password?: boolean
-  name?: boolean
+  ign?: boolean
   mlbbId?: boolean
   currentRank?: boolean
-  currentRankStars?: boolean
   peakRank?: boolean
-  peakRankStars?: boolean
   role?: boolean
   totalMatches?: boolean
   winRate?: boolean
@@ -831,12 +624,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   username?: boolean
   password?: boolean
-  name?: boolean
+  ign?: boolean
   mlbbId?: boolean
   currentRank?: boolean
-  currentRankStars?: boolean
   peakRank?: boolean
-  peakRankStars?: boolean
   role?: boolean
   totalMatches?: boolean
   winRate?: boolean
@@ -850,12 +641,10 @@ export type UserSelectScalar = {
   id?: boolean
   username?: boolean
   password?: boolean
-  name?: boolean
+  ign?: boolean
   mlbbId?: boolean
   currentRank?: boolean
-  currentRankStars?: boolean
   peakRank?: boolean
-  peakRankStars?: boolean
   role?: boolean
   totalMatches?: boolean
   winRate?: boolean
@@ -865,29 +654,19 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "password" | "name" | "mlbbId" | "currentRank" | "currentRankStars" | "peakRank" | "peakRankStars" | "role" | "totalMatches" | "winRate" | "fbLink" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
-export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  posts?: boolean | Prisma.User$postsArgs<ExtArgs>
-  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "password" | "ign" | "mlbbId" | "currentRank" | "peakRank" | "role" | "totalMatches" | "winRate" | "fbLink" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {
-    posts: Prisma.$PostPayload<ExtArgs>[]
-  }
+  objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     username: string
     password: string
-    name: string | null
+    ign: string
     mlbbId: string
     currentRank: string
-    currentRankStars: number
     peakRank: string
-    peakRankStars: number
     role: string
     totalMatches: number
     winRate: number
@@ -1289,7 +1068,6 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  posts<T extends Prisma.User$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1322,12 +1100,10 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
   readonly username: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
-  readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly ign: Prisma.FieldRef<"User", 'String'>
   readonly mlbbId: Prisma.FieldRef<"User", 'String'>
   readonly currentRank: Prisma.FieldRef<"User", 'String'>
-  readonly currentRankStars: Prisma.FieldRef<"User", 'Int'>
   readonly peakRank: Prisma.FieldRef<"User", 'String'>
-  readonly peakRankStars: Prisma.FieldRef<"User", 'Int'>
   readonly role: Prisma.FieldRef<"User", 'String'>
   readonly totalMatches: Prisma.FieldRef<"User", 'Int'>
   readonly winRate: Prisma.FieldRef<"User", 'Float'>
@@ -1352,10 +1128,6 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1374,10 +1146,6 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1395,10 +1163,6 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -1448,10 +1212,6 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1499,10 +1259,6 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which Users to fetch.
    */
@@ -1552,10 +1308,6 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  /**
    * The data needed to create a User.
    */
   data: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>
@@ -1603,10 +1355,6 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1674,10 +1422,6 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1704,10 +1448,6 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1728,30 +1468,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.posts
- */
-export type User$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Post
-   */
-  select?: Prisma.PostSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Post
-   */
-  omit?: Prisma.PostOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PostInclude<ExtArgs> | null
-  where?: Prisma.PostWhereInput
-  orderBy?: Prisma.PostOrderByWithRelationInput | Prisma.PostOrderByWithRelationInput[]
-  cursor?: Prisma.PostWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PostScalarFieldEnum | Prisma.PostScalarFieldEnum[]
-}
-
-/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1763,8 +1479,4 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
 }

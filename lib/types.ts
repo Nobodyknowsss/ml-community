@@ -2,10 +2,9 @@ export type SignupFormData = {
   username: string;
   password: string;
   passwordConfirm: string;
+  ign: string;
   currentRank: string;
-  currentRankStars: number;
   peakRank: string;
-  peakRankStars: number;
   role: string;
   mlbbId: string;
   totalMatches: number;
@@ -41,6 +40,31 @@ export type SessionData = {
   winRate: number;
 };
 
+export type Scrim = {
+  id: string;
+  teamName: string;
+  teamLogo?: string;
+  region: string;
+  gameType: string; // BO1, BO3, 2Games, etc.
+  minRank: string;
+  maxRank: string;
+  time: string;
+  minRankIcon?: string;
+  maxRankIcon?: string;
+};
+
+export type CreateScrimFormData = {
+  squadType: "full" | "open"; // Full Squad 5v5 or OpenSquad
+  teamName: string;
+  teamLogo?: string;
+  minRank: string;
+  maxRank: string;
+  gameFormat: "Games" | "Best of"; // Games or Best of
+  gameCount: number; // 1-100
+  date: string;
+  time: string;
+};
+
 // ============ Constants ============
 
 export const RANKS = [
@@ -51,6 +75,9 @@ export const RANKS = [
   "Epic",
   "Legend",
   "Mythic",
+  "Mythic Honor",
+  "Mythic Glory",
+  "Mythic Immortal",
 ] as const;
 
 export const ROLES = [

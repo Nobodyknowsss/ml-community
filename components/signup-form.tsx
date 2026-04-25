@@ -13,10 +13,9 @@ export function SignupForm() {
     username: "",
     password: "",
     passwordConfirm: "",
+    ign: "",
     currentRank: "Warrior",
-    currentRankStars: 0,
     peakRank: "Warrior",
-    peakRankStars: 0,
     role: "Midlane",
     mlbbId: "",
     totalMatches: 0,
@@ -37,9 +36,7 @@ export function SignupForm() {
     setFormData((prev) => ({
       ...prev,
       [name]:
-        name === "totalMatches" ||
-        name === "currentRankStars" ||
-        name === "peakRankStars"
+        name === "totalMatches"
           ? value === ""
             ? 0
             : parseInt(value, 10)
@@ -94,34 +91,35 @@ export function SignupForm() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8 shadow-lg max-h-[90vh] overflow-y-auto">
+    <div className="w-full">
+      <h1 className="text-4xl font-bold text-green-400 uppercase tracking-widest mb-12">
+        Create Account
+      </h1>
+
+      <div className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-green-400 mb-2">
-            CREATE ACCOUNT
-          </h1>
-          <p className="text-gray-400 text-sm">
-            Start your competitive journey
+        <div className="mb-8">
+          <p className="text-gray-400 text-base">
+            Start your competitive journey today
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="p-3 bg-red-600/20 border border-red-600/50 rounded text-red-300 text-sm">
+            <div className="p-4 bg-red-600/20 border border-red-600/50 rounded-lg text-red-400 text-sm font-semibold">
               {error}
             </div>
           )}
 
           {/* Username & Password Section */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-green-400 uppercase">
+            <h3 className="text-sm font-bold text-green-400 uppercase tracking-wide border-b border-green-600/20 pb-3">
               Login Credentials
             </h3>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-300 block">
+              <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                 Username
               </label>
               <Input
@@ -129,13 +127,14 @@ export function SignupForm() {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="Choose username"
+                className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                 disabled={isLoading}
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-300 block">
+              <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                 Password
               </label>
               <div className="relative">
@@ -145,13 +144,14 @@ export function SignupForm() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Enter password"
+                  className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                   disabled={isLoading}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-400 transition-colors"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -159,7 +159,7 @@ export function SignupForm() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-300 block">
+              <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                 Confirm Password
               </label>
               <div className="relative">
@@ -169,13 +169,14 @@ export function SignupForm() {
                   value={formData.passwordConfirm}
                   onChange={handleChange}
                   placeholder="Confirm password"
+                  className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                   disabled={isLoading}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-400 transition-colors"
                 >
                   {showConfirmPassword ? (
                     <EyeOff size={18} />
@@ -189,12 +190,27 @@ export function SignupForm() {
 
           {/* Account Details Section */}
           <div className="space-y-4 pt-4 border-t border-green-600/20">
-            <h3 className="text-sm font-bold text-green-400 uppercase">
+            <h3 className="text-sm font-bold text-green-400 uppercase tracking-wide">
               Account Details
             </h3>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-300 block">
+              <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
+                In-Game Name (IGN)
+              </label>
+              <Input
+                name="ign"
+                value={formData.ign}
+                onChange={handleChange}
+                placeholder="Your in-game username"
+                className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
+                disabled={isLoading}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                 MLBB ID
               </label>
               <Input
@@ -202,6 +218,7 @@ export function SignupForm() {
                 value={formData.mlbbId}
                 onChange={handleChange}
                 placeholder="e.g., 232142421"
+                className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                 disabled={isLoading}
                 required
               />
@@ -209,7 +226,7 @@ export function SignupForm() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="text-xs font-medium text-gray-300 block">
+                <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                   Current Rank
                 </label>
                 <select
@@ -217,7 +234,7 @@ export function SignupForm() {
                   value={formData.currentRank}
                   onChange={handleChange}
                   disabled={isLoading}
-                  className="w-full bg-gray-800 border border-green-600/30 text-gray-100 px-3 py-2 rounded text-sm"
+                  className="w-full bg-gray-800/50 border border-green-600/30 text-green-400 px-3 py-2 rounded text-sm"
                 >
                   {RANKS.map((rank) => (
                     <option key={rank} value={rank}>
@@ -225,23 +242,10 @@ export function SignupForm() {
                     </option>
                   ))}
                 </select>
-                {formData.currentRank === "Mythic" && (
-                  <Input
-                    name="currentRankStars"
-                    type="number"
-                    min="0"
-                    max="999"
-                    step="1"
-                    value={formData.currentRankStars || ""}
-                    onChange={handleChange}
-                    placeholder="Stars (0-999)"
-                    disabled={isLoading}
-                  />
-                )}
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-medium text-gray-300 block">
+                <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                   Peak Rank
                 </label>
                 <select
@@ -249,7 +253,7 @@ export function SignupForm() {
                   value={formData.peakRank}
                   onChange={handleChange}
                   disabled={isLoading}
-                  className="w-full bg-gray-800 border border-green-600/30 text-gray-100 px-3 py-2 rounded text-sm"
+                  className="w-full bg-gray-800/50 border border-green-600/30 text-green-400 px-3 py-2 rounded text-sm"
                 >
                   {RANKS.map((rank) => (
                     <option key={rank} value={rank}>
@@ -257,24 +261,11 @@ export function SignupForm() {
                     </option>
                   ))}
                 </select>
-                {formData.peakRank === "Mythic" && (
-                  <Input
-                    name="peakRankStars"
-                    type="number"
-                    min="0"
-                    max="999"
-                    step="1"
-                    value={formData.peakRankStars || ""}
-                    onChange={handleChange}
-                    placeholder="Stars (0-999)"
-                    disabled={isLoading}
-                  />
-                )}
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-300 block">
+              <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                 Main Role
               </label>
               <select
@@ -282,7 +273,7 @@ export function SignupForm() {
                 value={formData.role}
                 onChange={handleChange}
                 disabled={isLoading}
-                className="w-full bg-gray-800 border border-green-600/30 text-gray-100 px-3 py-2 rounded text-sm"
+                className="w-full bg-gray-800/50 border border-green-600/30 text-green-400 px-3 py-2 rounded text-sm"
               >
                 {ROLES.map((role) => (
                   <option key={role} value={role}>
@@ -294,7 +285,7 @@ export function SignupForm() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="text-xs font-medium text-gray-300 block">
+                <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                   Total Matches
                 </label>
                 <Input
@@ -305,12 +296,13 @@ export function SignupForm() {
                   value={formData.totalMatches || ""}
                   onChange={handleChange}
                   placeholder="0"
+                  className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                   disabled={isLoading}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-medium text-gray-300 block">
+                <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                   Win Rate %
                 </label>
                 <Input
@@ -322,13 +314,14 @@ export function SignupForm() {
                   value={formData.winRate || ""}
                   onChange={handleChange}
                   placeholder="0"
+                  className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                   disabled={isLoading}
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-300 block">
+              <label className="text-xs font-medium text-gray-400 block uppercase tracking-wide">
                 Facebook Link (Optional)
               </label>
               <Input
@@ -337,6 +330,7 @@ export function SignupForm() {
                 value={formData.fbLink}
                 onChange={handleChange}
                 placeholder="https://facebook.com/..."
+                className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                 disabled={isLoading}
               />
             </div>
@@ -346,14 +340,14 @@ export function SignupForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-green-600 hover:bg-green-500 disabled:bg-gray-700 disabled:cursor-not-allowed text-black font-bold py-2.5 rounded-lg transition-colors uppercase tracking-widest text-sm mt-6"
+            className="w-full bg-yellow-500 hover:bg-yellow-400 disabled:bg-yellow-600 text-black font-bold py-3 rounded-lg transition-colors uppercase tracking-wide mt-6"
           >
             {isLoading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
         {/* Sign In Link */}
-        <div className="mt-6 text-center">
+        <div className="mt-8 pt-6 border-t border-green-600/20 text-center">
           <p className="text-gray-400 text-sm">
             Already have an account?{" "}
             <Link
@@ -367,9 +361,9 @@ export function SignupForm() {
 
         {/* Success Message */}
         {showSuccess && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 rounded-lg p-4">
-            <div className="bg-gray-900 border border-green-600/30 rounded-lg p-8 text-center max-w-sm">
-              <h2 className="text-2xl font-bold text-green-400 mb-2">
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+            <div className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8 text-center max-w-sm">
+              <h2 className="text-3xl font-bold text-green-400 mb-4 uppercase tracking-wide">
                 Account Created!
               </h2>
               <p className="text-gray-300 mb-6">
@@ -377,7 +371,7 @@ export function SignupForm() {
               </p>
               <button
                 onClick={handleSuccessClose}
-                className="bg-green-600 hover:bg-green-500 text-black font-bold py-2 px-6 rounded-lg transition-colors"
+                className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-2 px-6 rounded-lg transition-colors uppercase tracking-wide"
               >
                 Go to Profile
               </button>

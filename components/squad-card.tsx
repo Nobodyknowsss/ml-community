@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export interface SquadPost {
   id: string;
   teamName: string;
@@ -21,9 +23,11 @@ export function SquadCard({ squad }: SquadCardProps) {
     <div className="border border-green-600/30 rounded-lg bg-linear-to-br from-gray-900 to-black p-5 hover:border-green-500/50 transition-all">
       <div className="flex items-start gap-4 mb-4">
         <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-green-600/20 border border-green-600/30">
-          <img
+          <Image
             src={squad.logo}
             alt={squad.teamName}
+            width={56}
+            height={56}
             className="w-full h-full object-cover"
             onError={(e) => {
               (e.target as HTMLImageElement).src = "/mlbb icon.jpg";

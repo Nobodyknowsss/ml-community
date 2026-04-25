@@ -75,12 +75,10 @@ export const UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
   password: 'password',
-  name: 'name',
+  ign: 'ign',
   mlbbId: 'mlbbId',
   currentRank: 'currentRank',
-  currentRankStars: 'currentRankStars',
   peakRank: 'peakRank',
-  peakRankStars: 'peakRankStars',
   role: 'role',
   totalMatches: 'totalMatches',
   winRate: 'winRate',
@@ -97,8 +95,7 @@ export const PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  published: 'published'
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]

@@ -59,25 +59,28 @@ export function SigninForm() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8 shadow-lg">
+    <div className="w-full">
+      <h1 className="text-4xl font-bold text-green-400 uppercase tracking-widest mb-12">
+        Sign In
+      </h1>
+
+      <div className="bg-linear-to-br from-gray-900 to-black border border-green-600/30 rounded-lg p-8">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-green-400 mb-2">
-            WELCOME BACK
-          </h1>
-          <p className="text-gray-400 text-sm">Sign in to your account</p>
+        <div className="mb-8">
+          <p className="text-gray-400 text-base">
+            Welcome back to the competitive arena
+          </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="p-3 bg-red-600/20 border border-red-600/50 rounded text-red-300 text-sm">
+            <div className="p-4 bg-red-600/20 border border-red-600/50 rounded-lg text-red-400 text-sm font-semibold">
               {error}
             </div>
           )}
           {success && (
-            <div className="p-3 bg-green-600/20 border border-green-600/50 rounded text-green-300 text-sm">
+            <div className="p-4 bg-green-600/20 border border-green-600/50 rounded-lg text-green-400 text-sm font-semibold">
               {success}
             </div>
           )}
@@ -86,7 +89,7 @@ export function SigninForm() {
           <div className="space-y-2">
             <label
               htmlFor="username"
-              className="text-sm font-medium text-gray-300 block"
+              className="text-sm font-semibold text-gray-400 block uppercase tracking-wide"
             >
               Username
             </label>
@@ -97,7 +100,7 @@ export function SigninForm() {
               value={formData.username}
               onChange={handleChange}
               placeholder="Enter your username"
-              className="bg-gray-800 border border-green-600/30 text-gray-100 placeholder-gray-500"
+              className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
               disabled={isLoading}
               required
             />
@@ -107,7 +110,7 @@ export function SigninForm() {
           <div className="space-y-2">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-gray-300 block"
+              className="text-sm font-semibold text-gray-400 block uppercase tracking-wide"
             >
               Password
             </label>
@@ -119,14 +122,14 @@ export function SigninForm() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
-                className="bg-gray-800 border border-green-600/30 text-gray-100 placeholder-gray-500"
+                className="bg-gray-800/50 border border-green-600/30 text-green-400 placeholder-gray-500"
                 disabled={isLoading}
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-400 transition-colors"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -137,14 +140,14 @@ export function SigninForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-green-600 hover:bg-green-500 disabled:bg-gray-700 disabled:cursor-not-allowed text-black font-bold py-2.5 rounded-lg transition-colors uppercase tracking-widest text-sm"
+            className="w-full bg-yellow-500 hover:bg-yellow-400 disabled:bg-yellow-600 text-black font-bold py-3 rounded-lg transition-colors uppercase tracking-wide mt-6"
           >
             {isLoading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
         {/* Sign Up Link */}
-        <div className="mt-6 text-center">
+        <div className="mt-8 pt-6 border-t border-green-600/20 text-center">
           <p className="text-gray-400 text-sm">
             Don&apos;t have an account?{" "}
             <Link
